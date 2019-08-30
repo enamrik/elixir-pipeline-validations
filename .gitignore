@@ -1,0 +1,18 @@
+# Elixir
+/_build
+/db
+/deps
+/*.ez
+target/
+tmp/
+manifest.dat
+/config/*.secret.exs
+
+#IDE files
+.idea
+*.iml
+.elixir_ls
+
+# Environment Variables
+.env
+
