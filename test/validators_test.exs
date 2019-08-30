@@ -21,5 +21,41 @@ defmodule ElixirPipelineValidations.ValidatorsTest do
       value    = "someValue"
       assert run_func.([:name], value) == {:ok, "someValue"}
     end
+
+    test "not_empty: should return error on nil" do
+      run_func = combine([:not_empty])
+      value    = nil
+      assert run_func.([:name], value) == {:error, "name can't be empty"}
+    end
+
+    test "not_empty: should return error on empty string" do
+      run_func = combine([:not_empty])
+      value    = ""
+      assert run_func.([:name], value) == {:error, "name can't be empty"}
+    end
+
+    test "not_empty: should return error on empty array" do
+      run_func = combine([:not_empty])
+      value    = []
+      assert run_func.([:name], value) == {:error, "name can't be empty"}
+    end
+
+    test "not_empty: can return error with value" do
+      run_func = combine([:not_empty], verbose_error: true)
+      value    = []
+      assert run_func.([:name], value) == {:error, "name can't be empty. `[]` invalid."}
+    end
+
+    test "not_empty: can succeed with non-empty string" do
+      run_func = combine([:not_empty], verbose_error: true)
+      value    = "someValue"
+      assert run_func.([:name], value) == {:ok, "someValue"}
+    end
+
+    test "not_empty: can succeed with non-empty array" do
+      run_func = combine([:not_empty], verbose_error: true)
+      value    = ["someValue"]
+      assert run_func.([:name], value) == {:ok, ["someValue"]}
+    end
   end
 end

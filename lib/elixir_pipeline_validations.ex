@@ -2,7 +2,8 @@ defmodule ElixirPipelineValidations do
   alias ElixirPipelineValidations.Validators
 
   @default_validators %{
-    required: &Validators.required/3
+    required: &Validators.required/3,
+    not_empty: &Validators.not_empty/3
   }
 
   def combine(funcs, options \\ []) do
