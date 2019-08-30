@@ -6,7 +6,7 @@ defmodule ElixirPipelineValidations do
     not_empty: &Validators.not_empty/3
   }
 
-  def combine(funcs, options \\ []) do
+  def pipe(funcs, options \\ []) do
     fn name, value ->
       name = if is_list(name), do: Enum.join(name, "."), else: name
       funcs
