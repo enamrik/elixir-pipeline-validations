@@ -8,7 +8,6 @@ defmodule ElixirPipelineValidations do
 
   def pipe(funcs, options \\ []) do
     fn name, value ->
-      name = if is_list(name), do: Enum.join(name, "."), else: name
       funcs
       |> Enum.reduce({:ok, value}, fn func, cur_value ->
 

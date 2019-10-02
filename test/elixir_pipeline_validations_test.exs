@@ -14,19 +14,19 @@ defmodule ElixirPipelineValidationsTest do
   end
 
   test "pipe: can optionally pass name and value to func if func has arity of 2" do
-    func1 = fn name, val -> {:ok, "#{val} #{name}:1"} end
-    func2 = fn name, val -> {:ok, "#{val} #{name}:2"} end
+    func1 = fn name, val -> {:ok, "#{val} #{inspect(name)}:1"} end
+    func2 = fn name, val -> {:ok, "#{val} #{inspect(name)}:2"} end
     func3 = fn val -> {:ok, "#{val} 3"} end
 
     run_func = pipe([func1, func2, func3])
     value = "someValue"
 
-    assert run_func.([:name], value) == {:ok, "someValue name:1 name:2 3"}
+    assert run_func.([:name], value) == {:ok, "someValue [:name]:1 [:name]:2 3"}
   end
 
   test "pipe: can pass no params to func" do
-    func1 = fn name, val -> {:ok, "#{val} #{name}:1"} end
-    func2 = fn name, val -> {:ok, "#{val} #{name}:2"} end
+    func1 = fn name, val -> {:ok, "#{val} #{inspect(name)}:1"} end
+    func2 = fn name, val -> {:ok, "#{val} #{inspect(name)}:2"} end
     func3 = fn-> {:ok, "3"} end
 
     run_func = pipe([func1, func2, func3])
